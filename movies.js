@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', async function(event) {
         // console.log(movieGenre)
 
         moviesDiv.insertAdjacentHTML('beforeend', `
-        <div class="movie-${movieID} w-1/5 p-4 min-h-459">
+        <div class="movie-${movieID} w-1/5 p-4">
           <div class="movie-photo-div zebra">
             <img src="https://image.tmdb.org/t/p/w500/${moviePhoto}" class="movie-photo border-2 w-full">
           </div>
@@ -88,6 +88,10 @@ window.addEventListener('DOMContentLoaded', async function(event) {
 
         let watchedButton = document.querySelector(`.movie-${movieID} .watched-button`) 
         let moviePhotoDiv = document.querySelector(`.movie-${movieID} .movie-photo`)
+        let positiveButton = document.querySelector(`.movie-${movieID} .positive-button`)
+        let negativeButton = document.querySelector(`.movie-${movieID} .negative-button`)
+        let yourRatingDiv = document.querySelector(`.movie-${movieID} .your-rating`)
+        let matchRatingDiv = document.querySelector(`.movie-${movieID} .match-rating`)
 
         let movieWatched = await db.collection('watched').doc(`${movieID}`).get()
         let grabMovie = movieWatched.data()
@@ -100,6 +104,21 @@ window.addEventListener('DOMContentLoaded', async function(event) {
           watchedButton.classList.add("text-black")
           watchedButton.classList.add("bg-yellow-200")
           watchedButton.innerHTML = `I haven't watched this`
+          // if (yourRating == movieRating)
+          // {
+          //   positiveButton.classList.remove('opacity-20')
+          //   negativeButton.classList.remove('opacity-20')
+          // }
+          // else if(yourRating > movieRating)
+          // {
+          //   positiveButton.classList.add('opacity-20')
+          //   negativeButton.classList.remove('opacity-20')
+          // }
+          // else
+          // {
+          //   positiveButton.classList.remove('opacity-20')
+          //   negativeButton.classList.add('opacity-20')
+          // }
         }
 
 
@@ -133,10 +152,10 @@ window.addEventListener('DOMContentLoaded', async function(event) {
 
 
       // THIS AREA CONTROLS THE LIKE/DISLIKE BUTTONS
-      let positiveButton = document.querySelector(`.movie-${movieID} .positive-button`)
-      let negativeButton = document.querySelector(`.movie-${movieID} .negative-button`)
-      let yourRatingDiv = document.querySelector(`.movie-${movieID} .your-rating`)
-      let matchRatingDiv = document.querySelector(`.movie-${movieID} .match-rating`)
+      // let positiveButton = document.querySelector(`.movie-${movieID} .positive-button`)
+      // let negativeButton = document.querySelector(`.movie-${movieID} .negative-button`)
+      // let yourRatingDiv = document.querySelector(`.movie-${movieID} .your-rating`)
+      // let matchRatingDiv = document.querySelector(`.movie-${movieID} .match-rating`)
       positiveButton.addEventListener('click', async function(event)
       {
         event.preventDefault()
@@ -147,12 +166,12 @@ window.addEventListener('DOMContentLoaded', async function(event) {
           yourRatingDiv.innerHTML = `Match: ${yourRating}%`
           positiveButton.classList.remove('opacity-20')
           negativeButton.classList.remove('opacity-20')
-          await db.collection('watched').doc(`${movieID}`).set(
-            {
-              movieID: movieID,
-              movieTitle: movieTitle,
-              yourRating: yourRating
-            }) 
+        //   await db.collection('watched').doc(`${movieID}`).set(
+        //     {
+        //       movieID: movieID,
+        //       movieTitle: movieTitle,
+        //       yourRating: yourRating
+        //     }) 
         }
         else
         {
@@ -162,12 +181,12 @@ window.addEventListener('DOMContentLoaded', async function(event) {
           negativeButton.classList.remove('opacity-20') 
           matchRatingDiv.classList.add("transition", "ease-in-out","duration-300")
           
-          await db.collection('watched').doc(`${movieID}`).set(
-            {
-              movieID: movieID,
-              movieTitle: movieTitle,
-              yourRating: yourRating
-            })
+          // await db.collection('watched').doc(`${movieID}`).set(
+          //   {
+          //     movieID: movieID,
+          //     movieTitle: movieTitle,
+          //     yourRating: yourRating
+          //   })
         }
       })
       negativeButton.addEventListener('click', async function(event)
@@ -180,12 +199,12 @@ window.addEventListener('DOMContentLoaded', async function(event) {
           yourRatingDiv.innerHTML = `Match: ${yourRating}%`
           negativeButton.classList.remove('opacity-20')
           positiveButton.classList.remove('opacity-20')
-          await db.collection('watched').doc(`${movieID}`).set(
-            {
-              movieID: movieID,
-              movieTitle: movieTitle,
-              yourRating: yourRating
-            })
+          // await db.collection('watched').doc(`${movieID}`).set(
+          //   {
+          //     movieID: movieID,
+          //     movieTitle: movieTitle,
+          //     yourRating: yourRating
+          //   })
         }
         else
         {
@@ -194,12 +213,12 @@ window.addEventListener('DOMContentLoaded', async function(event) {
           negativeButton.classList.add('opacity-20')
           positiveButton.classList.remove('opacity-20')
 
-          await db.collection('watched').doc(`${movieID}`).set(
-            {
-              movieID: movieID,
-              movieTitle: movieTitle,
-              yourRating: yourRating
-            })
+          // await db.collection('watched').doc(`${movieID}`).set(
+          //   {
+          //     movieID: movieID,
+          //     movieTitle: movieTitle,
+          //     yourRating: yourRating
+          //   })
         }
       })
 
